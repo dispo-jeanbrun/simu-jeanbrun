@@ -20,10 +20,10 @@ export default function MentionsLegalesPage() {
 
         <h2>Éditeur du site</h2>
         <p>
-          Le site simu-jeanbrun.fr est édité par [Votre nom / Raison sociale].<br />
-          Adresse : [Votre adresse]<br />
+          Le site simu-jeanbrun.fr est édité par une entreprise en cours d&apos;immatriculation.<br />
           Email : contact@simu-jeanbrun.fr<br />
-          SIRET : [Votre SIRET]
+          SIRET : En cours d&apos;obtention<br />
+          Cette page sera mise à jour dès l&apos;immatriculation effective.
         </p>
 
         <h2>Hébergeur</h2>

@@ -22,7 +22,7 @@ export default function PolitiqueConfidentialitePage() {
         <h2>1. Responsable du traitement</h2>
         <p>
           Le responsable du traitement des données collectées sur simu-jeanbrun.fr est
-          [Votre nom / Raison sociale], [adresse], contact@simu-jeanbrun.fr.
+          l&apos;éditeur du site (entreprise en cours d&apos;immatriculation), joignable à contact@simu-jeanbrun.fr.
         </p>
 
         <h2>2. Données collectées</h2>
