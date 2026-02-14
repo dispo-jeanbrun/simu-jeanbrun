@@ -61,13 +61,42 @@ export const step4Schema = z.object({
   revenusFonciersExistants: z.number().min(0).default(0),
 });
 
+/**
+ * Normalize a French mobile phone number to 06/07XXXXXXXX format.
+ * Accepts: 06 12 34 56 78, +33612345678, 0033 6 12 34 56 78, 06.12.34.56.78, etc.
+ * Returns normalized string or null if invalid.
+ */
+export function normalizeFrenchPhone(raw: string): string | null {
+  // Strip all non-digit characters except leading +
+  const cleaned = raw.replace(/[^0-9+]/g, '');
+
+  let digits: string;
+  if (cleaned.startsWith('+33')) {
+    digits = '0' + cleaned.slice(3);
+  } else if (cleaned.startsWith('0033')) {
+    digits = '0' + cleaned.slice(4);
+  } else {
+    digits = cleaned;
+  }
+
+  // Must be exactly 10 digits starting with 06 or 07
+  if (/^0[67]\d{8}$/.test(digits)) {
+    return digits;
+  }
+  return null;
+}
+
 export const leadSchema = z.object({
   email: z.string().email("Format d'email invalide"),
   phone: z
     .string()
-    .min(10, 'Numéro de téléphone invalide')
-    .optional()
-    .or(z.literal('')),
+    .refine(
+      (val) => {
+        if (!val || val.trim() === '') return true; // optional
+        return normalizeFrenchPhone(val) !== null;
+      },
+      { message: 'Numéro mobile français invalide (06 ou 07)' }
+    ),
   firstName: z.string().min(2, 'Prénom requis (min. 2 caractères)'),
   consent: z.literal(true, {
     error: 'Vous devez accepter pour continuer',

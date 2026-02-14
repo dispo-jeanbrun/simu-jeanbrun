@@ -22,6 +22,7 @@ import {
   type SimulatorFormData,
   type LeadData,
 } from '@/lib/schemas';
+import { useRouter } from 'next/navigation';
 import { runSimulation, type SimulationResult, type SimulationInput } from '@/lib/simulator';
 
 const STEP_LABELS = ['Projet', 'Financement', 'Location', 'Fiscal'];
@@ -52,9 +53,11 @@ const fullSchema = z.object({
 type Phase = 'form' | 'calculating' | 'result-preview' | 'lead-capture' | 'result-full';
 
 export function SimulatorForm() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [phase, setPhase] = useState<Phase>('form');
   const [result, setResult] = useState<SimulationResult | null>(null);
+  const [simulationInput, setSimulationInput] = useState<SimulationInput | null>(null);
   const [leadLoading, setLeadLoading] = useState(false);
 
   const form = useForm<SimulatorFormData>({
@@ -150,6 +153,7 @@ export function SimulatorForm() {
 
       const simResult = runSimulation(input);
       setResult(simResult);
+      setSimulationInput(input);
       setPhase('result-preview');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -178,14 +182,29 @@ export function SimulatorForm() {
         niveauLoyer: values.niveauLoyer,
         economieImpot9ans: result?.economieTotale9ans,
         effortEpargneMensuel: result?.effortEpargneMoyenMensuel,
+        // Include full simulation data for token-based retrieval
+        simulationData: simulationInput ? { input: simulationInput } : null,
       };
 
-      await fetch('/api/leads', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
 
+      const data = await res.json();
+
+      // If email verification is required, redirect to verification page
+      if (data.emailVerificationRequired) {
+        const params = new URLSearchParams({
+          email: data.maskedEmail || '',
+          id: data.id || '',
+        });
+        router.push(`/simulateur/verification?${params.toString()}`);
+        return;
+      }
+
+      // Otherwise, show results directly (feature flag off)
       setPhase('result-full');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
