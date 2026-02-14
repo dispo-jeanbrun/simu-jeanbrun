@@ -22,6 +22,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'Simu-Jeanbrun.fr',
+    title: "Simulateur Jeanbrun 2026 — Calculez votre économie d'impôt",
+    description:
+      "Simulateur gratuit du dispositif Jeanbrun. Calculez votre économie d'impôt, comparez avec le LMNP et la location nue.",
+    url: 'https://simu-jeanbrun.fr',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Simulateur Jeanbrun 2026 — Calculez votre économie d'impôt",
+    description:
+      "Simulateur gratuit du dispositif Jeanbrun. Calculez votre économie d'impôt, comparez avec le LMNP et la location nue.",
   },
   robots: {
     index: true,
