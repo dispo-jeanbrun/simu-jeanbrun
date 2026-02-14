@@ -10,10 +10,13 @@ interface Props {
   form: UseFormReturn<SimulatorFormData>;
 }
 
-const zoneOptions = Object.entries(ZONES_LABELS).map(([value, label]) => ({
-  value,
-  label: `Zone ${label}`,
-}));
+const zoneOptions = [
+  { value: 'A_bis', label: 'Zone A bis — Paris et petite couronne' },
+  { value: 'A', label: 'Zone A — Lyon, Marseille, Lille, Montpellier...' },
+  { value: 'B1', label: 'Zone B1 — Bordeaux, Nantes, Toulouse, Rennes...' },
+  { value: 'B2', label: 'Zone B2 — Villes moyennes (Amiens, Limoges...)' },
+  { value: 'C', label: 'Zone C — Zones rurales et petites villes' },
+];
 
 export function Step1Projet({ form }: Props) {
   const {
