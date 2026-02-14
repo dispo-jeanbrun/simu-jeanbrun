@@ -43,6 +43,22 @@ const faqItems = [
 export default function FiscaliteJeanbrunPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Fiscalité du dispositif Jeanbrun 2026 : TMI, prélèvements sociaux, plus-value',
+            description:
+              "Guide fiscal complet du dispositif Jeanbrun. Impact sur l'IR selon votre TMI, prélèvements sociaux à 17,2%, traitement de la plus-value à la revente.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

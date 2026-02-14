@@ -50,6 +50,22 @@ const niveaux = Object.keys(NIVEAUX_LOYER_LABELS) as NiveauLoyer[];
 export default function DispositifJeanbrunPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Dispositif Jeanbrun 2026 : Guide complet — Fonctionnement, conditions, avantages',
+            description:
+              "Tout savoir sur le dispositif Jeanbrun : amortissement fiscal, conditions d'éligibilité, plafonds de loyer, comparaison avec le Pinel et le LMNP.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

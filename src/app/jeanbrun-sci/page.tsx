@@ -35,6 +35,22 @@ const faqItems = [
 export default function JeanbrunSciPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Dispositif Jeanbrun et SCI : compatibilité et conditions',
+            description:
+              "Le dispositif Jeanbrun est-il compatible avec une SCI ? SCI à l'IR oui, SCI à l'IS non. Guide complet pour investir en SCI avec le Jeanbrun.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

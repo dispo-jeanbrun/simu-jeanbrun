@@ -35,6 +35,22 @@ const faqItems = [
 export default function DeficitFoncierJeanbrunPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Déficit foncier et dispositif Jeanbrun 2026 : comment ça marche ?',
+            description:
+              "Comprendre le déficit foncier dans le cadre du dispositif Jeanbrun. Plafond de 10 700\u20ac, report sur 10 ans, calcul détaillé et exemples.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

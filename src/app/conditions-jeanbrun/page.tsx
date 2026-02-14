@@ -40,6 +40,22 @@ const faqItems = [
 export default function ConditionsJeanbrunPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: "Conditions d'éligibilité du dispositif Jeanbrun 2026",
+            description:
+              "Toutes les conditions pour bénéficier du dispositif Jeanbrun : type de bien, durée d'engagement, plafonds de loyer, locataire, zone géographique.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

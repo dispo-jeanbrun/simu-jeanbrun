@@ -35,6 +35,22 @@ const faqItems = [
 export default function JeanbrunVsPinelPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Jeanbrun vs Pinel 2026 : quel dispositif choisir ?',
+            description:
+              "Comparatif complet Jeanbrun vs Pinel. Le dispositif Pinel a pris fin en 2024, le Jeanbrun le remplace avec l\u2019amortissement fiscal. Guide détaillé.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

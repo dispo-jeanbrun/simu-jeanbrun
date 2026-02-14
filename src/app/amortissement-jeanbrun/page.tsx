@@ -44,6 +44,22 @@ const niveaux = Object.keys(NIVEAUX_LOYER_LABELS) as NiveauLoyer[];
 export default function AmortissementJeanbrunPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Amortissement Jeanbrun 2026 : taux, calcul et plafonds — Guide complet',
+            description:
+              "Comment fonctionne l'amortissement du dispositif Jeanbrun ? Taux de 3,5% à 5,5%, base amortissable, plafonds annuels. Calcul détaillé et exemples concrets.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

@@ -35,6 +35,22 @@ const faqItems = [
 export default function JeanbrunNeufPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Dispositif Jeanbrun dans le neuf : VEFA et construction 2026',
+            description:
+              "Investir dans le neuf avec le dispositif Jeanbrun. VEFA, construction, conditions, amortissement fiscal et simulation gratuite.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

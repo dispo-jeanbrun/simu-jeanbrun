@@ -16,7 +16,6 @@ function AnimatedCounter({ target, duration = 2000 }: { target: number; duration
     const tick = () => {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(target * eased));
       if (progress < 1) requestAnimationFrame(tick);
@@ -39,7 +38,7 @@ export function ResultPreview({ result }: Props) {
         </p>
       </div>
 
-      {/* Gros chiffre */}
+      {/* Big number */}
       <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-8 text-center text-white">
         <p className="text-sm text-white/70 mb-2">
           Économie d&apos;impôt totale sur 9 ans
@@ -52,7 +51,7 @@ export function ResultPreview({ result }: Props) {
         </p>
       </div>
 
-      {/* Comparaison simplifiée */}
+      {/* Comparison bars */}
       <div className="space-y-3">
         <h3 className="font-semibold text-text text-sm">
           Comparaison des économies sur 9 ans
@@ -120,7 +119,30 @@ export function ResultPreview({ result }: Props) {
         })}
       </div>
 
-      {/* Aperçu flouté du tableau */}
+      {/* FOMO list — what they get */}
+      <div className="bg-background-alt rounded-xl p-5 space-y-3">
+        <p className="font-semibold text-text text-sm">
+          Votre simulation complète inclut :
+        </p>
+        <ul className="space-y-2">
+          {[
+            'Tableau détaillé année par année',
+            'Comparaison Jeanbrun vs LMNP vs location nue',
+            "Effort d'épargne mensuel réel",
+            'Analyse de la plus-value et du patrimoine constitué',
+            'Mise en relation avec un conseiller spécialisé',
+          ].map((item) => (
+            <li key={item} className="flex items-center gap-2 text-sm text-text-light">
+              <svg className="w-4 h-4 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Blurred table preview */}
       <div className="relative">
         <div className="blur-sm select-none pointer-events-none" aria-hidden="true">
           <table className="w-full text-sm border-collapse">
@@ -155,7 +177,7 @@ export function ResultPreview({ result }: Props) {
               Débloquez votre simulation complète
             </p>
             <p className="text-xs text-text-light mt-1">
-              Tableau détaillé, PDF et mise en relation conseiller
+              Tableau détaillé, mise en relation conseiller
             </p>
           </div>
         </div>

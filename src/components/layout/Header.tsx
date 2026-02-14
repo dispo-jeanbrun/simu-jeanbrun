@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const navLinks = [
   { href: '/simulateur', label: 'Simulateur' },
@@ -12,13 +12,24 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header
+      className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b transition-shadow duration-300 ${
+        scrolled ? 'shadow-sm border-border' : 'border-transparent'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">JB</span>
             </div>
@@ -43,7 +54,7 @@ export function Header() {
           {/* CTA Desktop */}
           <Link
             href="/simulateur"
-            className="hidden md:inline-flex items-center px-5 py-2.5 bg-secondary text-white text-sm font-semibold rounded-lg hover:bg-secondary-light transition-colors shadow-sm"
+            className="hidden md:inline-flex items-center px-5 py-2.5 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light transition-colors shadow-sm"
           >
             Simuler gratuitement
           </Link>
@@ -83,7 +94,7 @@ export function Header() {
             ))}
             <Link
               href="/simulateur"
-              className="block mt-2 px-5 py-3 bg-secondary text-white text-sm font-semibold rounded-lg text-center hover:bg-secondary-light"
+              className="block mt-2 px-5 py-3 bg-accent text-white text-sm font-semibold rounded-lg text-center hover:bg-accent-light"
               onClick={() => setMobileOpen(false)}
             >
               Simuler gratuitement

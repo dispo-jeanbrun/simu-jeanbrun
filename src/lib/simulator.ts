@@ -217,8 +217,6 @@ export function runSimulation(input: SimulationInput): SimulationResult {
   let totalLoyers = 0;
   let totalCapitalRembourse = 0;
   let totalEffort = 0;
-  let deficitReportableCumule = 0;
-
   for (let a = 1; a <= DUREE_DISPOSITIF; a++) {
     const loyerBrut = loyerMensuel * 12;
     const loyerNet = loyerBrut * (1 - vacanceRate);
@@ -274,7 +272,6 @@ export function runSimulation(input: SimulationInput): SimulationResult {
       economiePS = reductionBase * TAUX_PRELEVEMENTS_SOCIAUX;
     }
 
-    deficitReportableCumule += deficitReportable;
 
     const economieTotale = economieIR + economiePS;
 

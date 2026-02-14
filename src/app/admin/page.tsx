@@ -76,7 +76,10 @@ export default function AdminPage() {
   }, [key, filter]);
 
   useEffect(() => {
-    if (authenticated) fetchLeads();
+    if (authenticated) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchLeads();
+    }
   }, [filter, authenticated, fetchLeads]);
 
   const updateStatus = async (id: string, status: string) => {

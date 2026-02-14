@@ -45,6 +45,22 @@ const faqItems = [
 export default function JeanbrunVsLmnpPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Jeanbrun ou LMNP en 2026 ? Comparatif détaillé',
+            description:
+              'Faut-il investir en Jeanbrun ou en LMNP ? Comparaison fiscalité, amortissement, plus-value, conditions. Avec simulateur comparatif.',
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"

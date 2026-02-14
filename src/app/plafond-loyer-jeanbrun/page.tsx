@@ -146,6 +146,23 @@ const faqItems = [
 export default function PlafondLoyerPage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'Plafonds de loyer Jeanbrun 2026 par zone — Tableau complet et liste des villes',
+            description:
+              "Consultez les plafonds de loyer du dispositif Jeanbrun 2026 par zone géographique (A bis, A, B1, B2, C). Liste des villes par zone et simulateur gratuit.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
+      {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

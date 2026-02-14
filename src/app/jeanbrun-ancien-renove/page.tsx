@@ -35,6 +35,22 @@ const faqItems = [
 export default function JeanbrunAncienRenovePage() {
   return (
     <>
+      {/* JSON-LD Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: "Jeanbrun dans l\u2019ancien rénové : guide complet 2026",
+            description:
+              "Investir dans l\u2019ancien avec travaux grâce au dispositif Jeanbrun. Conditions des 30% de travaux, cumul déficit foncier et amortissement, exemples.",
+            datePublished: '2026-02-01',
+            author: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+            publisher: { '@type': 'Organization', name: 'Simu-Jeanbrun.fr' },
+          }),
+        }}
+      />
       {/* JSON-LD FAQ */}
       <script
         type="application/ld+json"
