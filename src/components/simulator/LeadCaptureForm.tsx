@@ -25,6 +25,16 @@ export function LeadCaptureForm({ onSubmit, loading }: Props) {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 animate-fade-in"
     >
+      {/* Bandeau urgence */}
+      <div className="flex items-center justify-center gap-2 bg-secondary/10 border border-secondary/30 rounded-lg px-3 py-2 mb-2">
+        <svg className="w-4 h-4 text-secondary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span className="text-xs font-semibold text-secondary">
+          Dispositif limité : du 01/02/2026 au 31/12/2028
+        </span>
+      </div>
+
       <div className="text-center mb-4">
         <h3 className="text-lg font-bold text-text">
           Recevez votre simulation complète

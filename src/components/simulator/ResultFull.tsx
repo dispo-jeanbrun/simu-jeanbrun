@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { formatEuro } from '@/lib/simulator';
 import type { SimulationResult } from '@/lib/simulator';
 import { Card } from '@/components/ui/Card';
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export function ResultFull({ result }: Props) {
+  const [tableOpen, setTableOpen] = useState(false);
+
   return (
     <div className="space-y-8 animate-slide-up">
       <div className="text-center">
@@ -82,83 +85,27 @@ export function ResultFull({ result }: Props) {
         </div>
       </div>
 
-      {/* Tableau année par année */}
-      <div>
-        <h3 className="font-bold text-text mb-4">Détail année par année</h3>
-        <div className="overflow-x-auto -mx-4 px-4">
-          <table className="w-full text-sm border-collapse min-w-[800px]">
-            <thead>
-              <tr className="bg-background-alt">
-                <th className="text-left p-3 font-semibold text-text-light">Année</th>
-                <th className="text-right p-3 font-semibold text-text-light">Loyer net</th>
-                <th className="text-right p-3 font-semibold text-text-light">Charges</th>
-                <th className="text-right p-3 font-semibold text-text-light">Intérêts</th>
-                <th className="text-right p-3 font-semibold text-text-light">Amortiss.</th>
-                <th className="text-right p-3 font-semibold text-text-light">Rev. foncier</th>
-                <th className="text-right p-3 font-semibold text-text-light">Éco. impôt</th>
-                <th className="text-right p-3 font-semibold text-text-light">Effort/mois</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.annees.map((row) => (
-                <tr key={row.annee} className="border-b border-border">
-                  <td className="p-3 font-medium">{row.annee}</td>
-                  <td className="p-3 text-right">{formatEuro(row.loyerNet)}</td>
-                  <td className="p-3 text-right text-danger">
-                    -{formatEuro(row.chargesDeductibles)}
-                  </td>
-                  <td className="p-3 text-right text-text-light">
-                    {formatEuro(row.interetsCredit)}
-                  </td>
-                  <td className="p-3 text-right text-primary">
-                    {formatEuro(row.amortissement)}
-                  </td>
-                  <td className="p-3 text-right">
-                    <span
-                      className={
-                        row.revenuApresAmortissement < 0
-                          ? 'text-accent font-medium'
-                          : ''
-                      }
-                    >
-                      {formatEuro(row.revenuApresAmortissement)}
-                    </span>
-                  </td>
-                  <td className="p-3 text-right text-accent font-semibold">
-                    {formatEuro(row.economieTotale)}
-                  </td>
-                  <td className="p-3 text-right font-medium">
-                    {formatEuro(row.effortEpargneMensuel)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="bg-primary/5 font-semibold">
-                <td className="p-3">Total</td>
-                <td className="p-3 text-right">
-                  {formatEuro(result.totalLoyersPercus)}
-                </td>
-                <td className="p-3 text-right" colSpan={3} />
-                <td className="p-3 text-right" />
-                <td className="p-3 text-right text-accent">
-                  {formatEuro(result.economieTotale9ans)}
-                </td>
-                <td className="p-3 text-right">
-                  {formatEuro(result.effortEpargneMoyenMensuel)}/mois moy.
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-
-      {/* CTA */}
+      {/* CTA — rappel conseiller EN PREMIER */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <button
-          className="flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary-light transition-colors cursor-pointer"
+          className="flex flex-col items-center justify-center gap-1 px-6 py-5 bg-secondary text-white font-semibold rounded-xl hover:bg-secondary-light transition-colors cursor-pointer"
           onClick={() => {
-            // PDF generation will be added in Phase 3
+            alert('Un conseiller vous recontactera dans les 24h.');
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+            Être rappelé par un conseiller
+          </div>
+          <span className="text-xs font-normal text-white/70">
+            Rappel sous 24h — gratuit et sans engagement
+          </span>
+        </button>
+        <button
+          className="flex items-center justify-center gap-2 px-6 py-5 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-primary/5 transition-colors cursor-pointer"
+          onClick={() => {
             alert('La génération PDF sera disponible prochainement.');
           }}
         >
@@ -167,17 +114,98 @@ export function ResultFull({ result }: Props) {
           </svg>
           Télécharger ma simulation PDF
         </button>
+      </div>
+
+      {/* Tableau année par année — replié par défaut */}
+      <div>
         <button
-          className="flex items-center justify-center gap-2 px-6 py-4 bg-secondary text-white font-semibold rounded-xl hover:bg-secondary-light transition-colors cursor-pointer"
-          onClick={() => {
-            alert('Un conseiller vous recontactera dans les 24h.');
-          }}
+          type="button"
+          onClick={() => setTableOpen(!tableOpen)}
+          className="flex items-center gap-2 font-bold text-text hover:text-primary transition-colors cursor-pointer w-full"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+          <svg
+            className={`w-5 h-5 transition-transform duration-300 ${tableOpen ? 'rotate-90' : ''}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
-          Être rappelé par un conseiller
+          Voir le détail année par année
         </button>
+        <div
+          className={`overflow-hidden transition-all duration-500 ${
+            tableOpen ? 'max-h-[1000px] opacity-100 mt-4' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="overflow-x-auto -mx-4 px-4">
+            <table className="w-full text-sm border-collapse min-w-[800px]">
+              <thead>
+                <tr className="bg-background-alt">
+                  <th className="text-left p-3 font-semibold text-text-light">Année</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Loyer net</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Charges</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Intérêts</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Amortiss.</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Rev. foncier</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Éco. impôt</th>
+                  <th className="text-right p-3 font-semibold text-text-light">Effort/mois</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.annees.map((row) => (
+                  <tr key={row.annee} className="border-b border-border">
+                    <td className="p-3 font-medium">{row.annee}</td>
+                    <td className="p-3 text-right">{formatEuro(row.loyerNet)}</td>
+                    <td className="p-3 text-right text-danger">
+                      -{formatEuro(row.chargesDeductibles)}
+                    </td>
+                    <td className="p-3 text-right text-text-light">
+                      {formatEuro(row.interetsCredit)}
+                    </td>
+                    <td className="p-3 text-right text-primary">
+                      {formatEuro(row.amortissement)}
+                    </td>
+                    <td className="p-3 text-right">
+                      <span
+                        className={
+                          row.revenuApresAmortissement < 0
+                            ? 'text-accent font-medium'
+                            : ''
+                        }
+                      >
+                        {formatEuro(row.revenuApresAmortissement)}
+                      </span>
+                    </td>
+                    <td className="p-3 text-right text-accent font-semibold">
+                      {formatEuro(row.economieTotale)}
+                    </td>
+                    <td className="p-3 text-right font-medium">
+                      {formatEuro(row.effortEpargneMensuel)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr className="bg-primary/5 font-semibold">
+                  <td className="p-3">Total</td>
+                  <td className="p-3 text-right">
+                    {formatEuro(result.totalLoyersPercus)}
+                  </td>
+                  <td className="p-3 text-right" colSpan={3} />
+                  <td className="p-3 text-right" />
+                  <td className="p-3 text-right text-accent">
+                    {formatEuro(result.economieTotale9ans)}
+                  </td>
+                  <td className="p-3 text-right">
+                    {formatEuro(result.effortEpargneMoyenMensuel)}/mois moy.
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

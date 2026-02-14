@@ -96,6 +96,7 @@ export interface ComparisonResult {
   economieTotale9ans: number;
   effortEpargneMoyenMensuel: number;
   label: string;
+  explication?: string;
 }
 
 // ============================================================
@@ -504,6 +505,10 @@ function simulerLMNP(
     economieTotale9ans: totalEconomie,
     effortEpargneMoyenMensuel: totalEffort / DUREE_DISPOSITIF,
     label: 'LMNP (meublé)',
+    explication:
+      totalEconomie === 0
+        ? "En LMNP, le déficit n'est pas imputable sur le revenu global — pas d'économie d'impôt directe dans ce scénario."
+        : undefined,
   };
 }
 

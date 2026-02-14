@@ -68,6 +68,7 @@ export function ResultPreview({ result }: Props) {
             label: result.comparaisonLMNP.label,
             value: result.comparaisonLMNP.economieTotale9ans,
             color: 'bg-secondary',
+            explication: result.comparaisonLMNP.explication,
           },
           {
             label: result.comparaisonNu.label,
@@ -109,20 +110,55 @@ export function ResultPreview({ result }: Props) {
                   style={{ width: `${width}%` }}
                 />
               </div>
+              {item.explication && (
+                <p className="text-xs text-text-light mt-1 italic">
+                  {item.explication}
+                </p>
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* Teaser */}
-      <div className="bg-secondary/10 border border-secondary/20 rounded-xl p-5 text-center">
-        <p className="font-semibold text-text mb-1">
-          Obtenez votre simulation complète
-        </p>
-        <p className="text-sm text-text-light">
-          Tableau détaillé année par année, graphiques comparatifs, PDF
-          téléchargeable et mise en relation avec un conseiller.
-        </p>
+      {/* Aperçu flouté du tableau */}
+      <div className="relative">
+        <div className="blur-sm select-none pointer-events-none" aria-hidden="true">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-background-alt">
+                <th className="text-left p-2 text-text-light">Année</th>
+                <th className="text-right p-2 text-text-light">Loyer net</th>
+                <th className="text-right p-2 text-text-light">Charges</th>
+                <th className="text-right p-2 text-text-light">Éco. impôt</th>
+                <th className="text-right p-2 text-text-light">Effort/mois</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.annees.slice(0, 3).map((row) => (
+                <tr key={row.annee} className="border-b border-border">
+                  <td className="p-2">{row.annee}</td>
+                  <td className="p-2 text-right">{formatEuro(row.loyerNet)}</td>
+                  <td className="p-2 text-right">-{formatEuro(row.chargesDeductibles)}</td>
+                  <td className="p-2 text-right text-accent">{formatEuro(row.economieTotale)}</td>
+                  <td className="p-2 text-right">{formatEuro(row.effortEpargneMensuel)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center bg-white/60 rounded-xl">
+          <div className="text-center">
+            <svg className="w-8 h-8 text-primary mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <p className="font-semibold text-text text-sm">
+              Débloquez votre simulation complète
+            </p>
+            <p className="text-xs text-text-light mt-1">
+              Tableau détaillé, PDF et mise en relation conseiller
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
